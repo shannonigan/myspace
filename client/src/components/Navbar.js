@@ -2,6 +2,7 @@ import React from 'react';
 import { AuthConsumer, } from '../providers/AuthProvider';
 import { Menu, } from 'semantic-ui-react';
 import { Link, withRouter, } from 'react-router-dom';
+import styled from "styled-components";
 
 
 class Navbar extends React.Component {
@@ -11,8 +12,9 @@ class Navbar extends React.Component {
 
     if (authenticated) {
       return (
+
         <Menu.Menu position="right">
-          <Menu.Item
+          <Menu.Item style={{color:"white"}}
             name="logout"
             onClick={() => handleLogout(history)}
           />
@@ -22,13 +24,13 @@ class Navbar extends React.Component {
       return (
         <Menu.Menu position="right">
           <Link to="/login">
-          <Menu.Item
+          <Menu.Item style={{color:"white"}}
             name="login"
             active={location.pathname === "/login"}
           />
           </Link>
           <Link to="/register">
-          <Menu.Item
+          <Menu.Item style={{color:"white"}}
             name="register"
             active={location.pathname === "/register"}
           />
@@ -71,16 +73,18 @@ class Navbar extends React.Component {
 
   render() {
     return (
-      <Menu pointing secondary>
-        <Link to="/">
-          <Menu.Item
-          name="Myspace"
-          active={this.props.location.pathname === "/"}
-          />
-        </Link>
-        { this.rightNavItems()}
-        {/* { this.centerNavItems() } */}
-      </Menu>
+      <NavContainer>
+        <Menu pointing secondary>
+          <Link to="/">
+            <Menu.Item style={{color:"white"}}
+            name="Myspace"
+            active={this.props.location.pathname === "/"}
+            />
+          </Link>
+          { this.rightNavItems()}
+          {/* { this.centerNavItems() } */}
+        </Menu>
+      </NavContainer>
     )
   }
 }
@@ -92,6 +96,18 @@ const ConnectedNavbar = (props) => (
     )}
   </AuthConsumer>
 );
+
+const NavContainer = styled.div`
+  padding-top: 5px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 5px;
+  background: #060656;
+  border-radius: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 10px;
+`;
 
 
 export default withRouter(ConnectedNavbar);

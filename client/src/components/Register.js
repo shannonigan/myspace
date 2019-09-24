@@ -1,6 +1,8 @@
 import React from 'react';
 import { AuthConsumer, } from "../providers/AuthProvider"
 import { Form, Header, } from "semantic-ui-react";
+import styled from "styled-components";
+import { HeaderText, } from "../styles/shared";
 
 
 class Register extends React.Component {
@@ -26,7 +28,8 @@ class Register extends React.Component {
   render() {
     return(
       <div>
-        <Header as="h1" textAlign="center"> Register </Header>
+        <br/>
+        <Header as={ HeaderText } fontSize="medium"> Register </Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
           label="Email"
@@ -56,9 +59,9 @@ class Register extends React.Component {
           onChange={this.handleChange}
           type="password"
           />     
-          <Form.Button color="violet">
+          <StyledButton color="violet">
             Submit
-          </Form.Button>
+          </StyledButton>
         </Form>
       </div>
     );
@@ -73,6 +76,23 @@ const ConnectedRegister = (props) => (
     )}
   </AuthConsumer>
 );
+
+const StyledButton = styled.button`
+  background: rgba(17, 125, 167, 0.87);
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  cursor: pointer;
+  outline: none;
+  font-size: 15px;
+  border-radius: 15px;
+  border: 1px solid white;
+
+  &:hover {
+    background: rgba(143, 224, 255, 0.87);
+    transition: background 0.2s ease;
+  }
+`;
 
 
 export default ConnectedRegister;

@@ -1,6 +1,8 @@
 import React from 'react';
 import { AuthConsumer, } from '../providers/AuthProvider';
 import { Form, Header, } from 'semantic-ui-react';
+import styled from 'styled-components';
+import { HeaderText, } from "../styles/shared";
 
 
 class Login extends React.Component {
@@ -13,16 +15,16 @@ class Login extends React.Component {
   handleSubmit = (e) => {
     const { auth: {handleLogin, }, history, } = this.props;
     e.preventDefault();
-    debugger
     handleLogin(this.state, history);
   };
 
   render() {
     return (
       <div>
-        <Header as="h1" textAlign="center"> Login </Header>
+        <br/>
+        <Header as={ HeaderText } fontSize="medium"> Login </Header>
         <Form onSubmit={this.handleSubmit}>
-          <Form.Input
+          <Form.Input inverted
             label="Email"
             placeholder="Email"
             type="email"
@@ -31,7 +33,7 @@ class Login extends React.Component {
             value={this.state.email}
             onChange={this.handleChange}
           />
-          <Form.Input
+          <Form.Input inverted
             label="Password"
             placeholder="Password"
             type="password"
@@ -41,9 +43,9 @@ class Login extends React.Component {
             onChange={this.handleChange}
           />
          
-          <Form.Button color="violet">
+          <StyledButton color="violet">
             Submit
-          </Form.Button>
+          </StyledButton>
         </Form>
       </div>
     );
@@ -57,5 +59,22 @@ const ConnectedLogin = (props) => (
     )}
   </AuthConsumer>
 );
+
+const StyledButton = styled.button`
+  background: rgba(17, 125, 167, 0.87);
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  cursor: pointer;
+  outline: none;
+  font-size: 15px;
+  border-radius: 15px;
+  border: 1px solid white;
+
+  &:hover {
+    background: rgba(143, 224, 255, 0.87);
+    transition: background 0.2s ease;
+  }
+`;
 
 export default ConnectedLogin;
