@@ -20,3 +20,10 @@ export const HeaderText = styled.h1`
   text-align: center;
   font-size: ${ props => fontSize(props.fontSize) } !important;
 `;
+
+
+export const WordText = styled.p`
+  color: black !important;
+  text-align: center;
+  font-size: ${ props => fontSize(props.fontSize) } !important;
+`;
