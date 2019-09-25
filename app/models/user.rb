@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   serialize :followed_friends, Array
 
-  def self.random_friend(ids)
+  def self.user(ids)
    ids = ids.empty? ? [0] : ids
    Friend.where("id NOT IN (?)", ids).order("RANDOM()")
   end

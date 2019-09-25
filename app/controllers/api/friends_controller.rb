@@ -3,13 +3,13 @@ class Api::FriendsController < ApplicationController
   
   def index
     # render json: Friend.all
-    render json: User.random_friend(current_user.followed_friends)
+    render json: User.user(current_user.followed_friends)
   end
 
   def update
     current_user.followed_friends << params[:id].to_i
     current_user.save
-    render json: User.random_friend(current_user.followed_friends)
+    render json: User.user(current_user.followed_friends)
   end
 
   def my_friends

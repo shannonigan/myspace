@@ -1,7 +1,7 @@
 import React from 'react';
 import { AuthConsumer, } from '../providers/AuthProvider';
 import { Menu, } from 'semantic-ui-react';
-import { Link, withRouter, } from 'react-router-dom';
+import { NavLink, withRouter, } from 'react-router-dom';
 import styled from "styled-components";
 
 
@@ -23,18 +23,18 @@ class Navbar extends React.Component {
     } else {
       return (
         <Menu.Menu position="right">
-          <Link to="/login">
+          <NavLink to="/login">
           <Menu.Item style={{color:"white"}}
             name="login"
             active={location.pathname === "/login"}
           />
-          </Link>
-          <Link to="/register">
+          </NavLink>
+          <NavLink to="/register">
           <Menu.Item style={{color:"white"}}
             name="register"
             active={location.pathname === "/register"}
           />
-          </Link>
+          </NavLink>
         </Menu.Menu>
       )
     }
@@ -75,12 +75,24 @@ class Navbar extends React.Component {
     return (
       <NavContainer>
         <Menu pointing secondary>
-          <Link to="/">
+          <NavLink to="/">
             <Menu.Item style={{color:"white"}}
-            name="Myspace"
+            name="Yourspace"
             active={this.props.location.pathname === "/"}
             />
-          </Link>
+          </NavLink>
+          <NavLink to="/users">
+            <Menu.Item style={{color:"white"}}
+            name="Community Space"
+            active={this.props.location.pathname === "/users"}
+            />
+          </NavLink>
+          <NavLink to="/my_friends">
+            <Menu.Item style={{color:"white"}}
+            name="Friend Space"
+            active={this.props.location.pathname === "/my_friends"}
+            />
+          </NavLink>
           { this.rightNavItems()}
           {/* { this.centerNavItems() } */}
         </Menu>
@@ -103,10 +115,7 @@ const NavContainer = styled.div`
   padding-right: 25px;
   padding-bottom: 5px;
   background: #060656;
-  border-radius: 50px;
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-top: 10px;
+
 `;
 
 
