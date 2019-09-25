@@ -1,8 +1,9 @@
 import React from 'react';
-import { Card, Header, Image, Container, Button, Icon, } from 'semantic-ui-react';
+import { Card, Header, Image, Container, Icon, } from 'semantic-ui-react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { HeaderText, WordText, } from "../styles/shared";
+
 
 
 class Home extends React.Component {
@@ -19,20 +20,23 @@ class Home extends React.Component {
       })
   }
 
+  ignore = (id) => { 
+    const {friends} = this.state
+    this.setState({ friends: friends.filter( f => f.id !== id)});
+  };
 
-  // ignore = () => {
-
-  // }
-
-  // follow = () => {
-    
-  // }
-
+  follow = (id) => {
+    const {friends } = this.state
+    axios.put(`/api/friends/${id}`)
+      .then( () => this.setState({friends: friends.filter( f => f.id !== id)})
+      )
+    };
+ 
 
   renderFriends = () => {
     const { friends, } = this.state;
     if (friends.length <=0)
-    return <Header a="h2">Ain't Got None</Header>
+    return <Header a="h2">No homies around here</Header>
     return friends.map( friend => (
       <Card>
           <Image src={ friend.avatar } />
@@ -41,22 +45,60 @@ class Home extends React.Component {
           <br />
         </Card.Content>
         <Card.Content extra>
-          <IgnoreButton color="red" icon basic >
+          <IgnoreButton icon basic onClick={() => this.ignore(friend.id)} >
             <Icon name="dont" />
           </IgnoreButton>
-          <FollowButton icon basic >
+          <FollowButton icon basic onClick={() => this.follow(friend.id)} >
             <Icon name="add circle" />
           </FollowButton>
         </Card.Content>
       </Card>
     ))
   }
+
+
+  // sample = () => {
+  //   if (friends.length) {
+  //     const index = Math.floor(Math.random() * friends.length);
+  //     return friends[index];
+  //   } else {
+  //     return null;
+  //   }
+  // };
+
+  // renderFriends = () => {
+  //   const { friends, } = this.state.sample;
+  //   if (friends) {
+  //   return friends.map( friend => (
+  //     <Card>
+  //         <Image src={ friend.avatar } />
+  //       <Card.Content>
+  //         <Card.Header as={ WordText } fontSize="small">{ friend.name }</Card.Header>
+  //         <br />
+  //       </Card.Content>
+  //       <Card.Content extra>
+  //         <IgnoreButton icon basic onClick={() => this.ignore(friend.id)} >
+  //           <Icon name="dont" />
+  //         </IgnoreButton>
+  //         <FollowButton icon basic onClick={() => this.follow(friend.id)} >
+  //           <Icon name="add circle" />
+  //         </FollowButton>
+  //       </Card.Content>
+  //     </Card>
+  //   ))
+  //   } else {
+  //     return <Header a="h2">No homies around here</Header>
+  //   }
+  // }
+
+
+
   render() {
 
     return(
       <Container>
         <br/>
-        <Header as={ HeaderText } fontSize="medium">Users</Header>
+        <Header as={ HeaderText } fontSize="medium">Suggested Friends</Header>
         <br />
         <br />
         <Card.Group centered itemsPerRow={4}>
@@ -76,9 +118,8 @@ const IgnoreButton = styled.button`
   border-radius: 25px;
   color: red;
 
-
   &:hover {
-    background: grey;
+    background: #ff00008a;
     transition: background 0.2s ease;
   }
 `;
@@ -94,15 +135,11 @@ const FollowButton = styled.button`
   color: green;
 
   &:hover {
-    background: rgba(30, 85, 90, 0.87);
+    background: #54d85499;
     transition: background 0.2s ease;
   }
 `;
 
 
 
-// const Wrapper = styled.section`
-//   padding: 4em;
-//   background: lightgreen;
-// `;
 export default Home;
