@@ -6,7 +6,7 @@ import { HeaderText, } from "../styles/shared";
 
 
 class Register extends React.Component {
-  state = { email: "", password: "", passwordConfirmation: "", };
+  state = { name: "", email: "", password: "", passwordConfirmation: "", };
 
 
   handleChange = (e, {name, value, }) => {
@@ -14,12 +14,12 @@ class Register extends React.Component {
   };
 
   handleSubmit = (e) => {
-    const { email, password, passwordConfirmation, } = this.state;
+    const { name, email, password, passwordConfirmation, } = this.state;
     const { auth: { handleRegister, }, history, } = this.props;
     e.preventDefault();
     
     if (password === passwordConfirmation)
-      handleRegister({email, password }, history);
+      handleRegister({name, email, password }, history);
     else
       alert("Passwords don't match");
   };
@@ -31,6 +31,16 @@ class Register extends React.Component {
         <br/>
         <Header as={ HeaderText } fontSize="medium"> Register </Header>
         <Form onSubmit={this.handleSubmit}>
+          <Form.Input
+            label="Name"
+            required
+            autoFocus
+            name="name"
+            value={ this.state.name }
+            placeholder="Name"
+            onChange={this.handleChange}
+            type="name"
+          /> 
           <Form.Input
           label="Email"
           required
